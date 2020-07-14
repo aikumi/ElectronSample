@@ -1,0 +1,55 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+</head>
+
+<body>
+  <h1>初めてのElectron</h1>
+  We are using node <script>document.write(process.versions.node)</script>,
+  Chrome <script>document.write(process.versions.chrome)</script>,
+  and Electron <script>document.write(process.versions.electron)</script>.
+
+  <button id="openFile">Open</button>
+</body>
+<script>
+const fs = require('fs')
+const { BrowserWindow, dialog } = require('electron').remote
+
+document.querySelector("#openFile").addEventListener('click', () => {
+    openFile();
+})
+
+function openFile() {
+    const arg = dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), {
+        properties: ['openFile'],
+        filters: [
+            {name: 'Document', extensions: ['jpg', 'jpeg', 'dng', 'mp4', 'mov']}
+        ]
+    }).then(result => {
+        console.log(result.canceled)
+        console.log(result.filePaths)
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", encodeURI(result.filePaths));
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+        if (this.status === 200) {
+            var blob = new Blob([this.response], {type: 'video/mp4'});
+            console.log(blob);
+        } else {
+            $('p.progress').text('404 Not Found');
+        }
+        }
+        xhr.onprogress = function (xhr) {
+        if (!xhr.loaded || !xhr.total || xhr.total == 0) { return; }
+        var progress = Math.floor(100 * xhr.loaded / xhr.total);
+        console.log(progress + '%');
+        }
+        xhr.send();
+
+    })
+}
+
+</script>
+</html>
