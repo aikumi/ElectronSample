@@ -31,10 +31,7 @@ app.on('ready', createWindow);
 
 // 全てのウィンドウが閉じたときの処理
 app.on('window-all-closed', () => {
-  // macOSのとき以外はアプリケーションを終了させます
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  app.quit();
 });
 // アプリケーションがアクティブになった時の処理(Macだと、Dockがクリックされた時）
 app.on('activate', () => {
