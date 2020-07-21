@@ -3,5 +3,6 @@ node_modules
 .idea
 .vscode
 yarn.lock
-/sample-electron/FirstApp-darwin-x64
 package-lock.json
+installer
+src_build

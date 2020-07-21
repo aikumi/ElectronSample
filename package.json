@@ -4,16 +4,15 @@
   "description": "",
   "devDependencies": {
     "electron": "^8.3.1",
-    "electron-builder": "^22.1.0",
-    "gulp": "4.0.2"
+    "electron-builder": "^22.7.0"
   },
   "scripts": {
     "start": "electron ./src",
     "obfuscation": "gulp build",
     "build-mac-package": "electron-packager ./src FirstApp --platform=darwin --arch=x64 --overwrite",
     "build-win-package": "electron-packager ./src FirstApp --platform=win32 --arch=x64 --overwrite",
-    "build-mac": "npm run obfuscation && electron-builder build --macos --x64",
-    "build-win": "npm run obfuscation && electron-builder build --win --ia32",
+    "build-mac": "electron-builder build --macos --x64",
+    "build-win": "electron-builder build --win --ia32",
     "clean": "find . -name node_modules | xargs rm -rf",
     "clean-install": "./scripts/clean-install.sh"
   },
@@ -41,7 +40,7 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": false
     }
   }
 }

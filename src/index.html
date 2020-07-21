@@ -31,7 +31,7 @@ function openFile() {
         console.log(result.filePaths)
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", encodeURI(result.filePaths));
+        xhr.open("GET", result.filePaths);
         xhr.responseType = 'blob';
         xhr.onload = function () {
         if (this.status === 200) {
